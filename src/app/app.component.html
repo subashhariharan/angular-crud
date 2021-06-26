@@ -1,0 +1,52 @@
+<div class="container-fluid">
+  <div class="row mt-5 p-2 " >
+    <div class="col-4 jumbotron ">
+      <div *ngIf="f.submitted && f.form.value.name!=''" class="float-right text-success text-justify" >
+          <strong>Form submitted successsfully...!!!</strong>
+      </div>
+      <form #f = "ngForm" name="form" (ngSubmit)= "onSubmit(f)" >
+        <div class="form-group">
+            <label for="name">Name:</label>
+            <span class="float-right text-danger text-justify" *ngIf="f.submitted && f.form.value.name==''" > Name required..!!</span>
+            <input  [(ngModel)]="crud.name" type="text" required class="form-control" id="name" placeholder="Enter Name" name="name">
+            <input [(ngModel)]="crud.id" type="hidden" class="form-control" id="id" placeholder="Enter Name" name="id">
+          </div>
+
+        <div class="form-group">
+          <label for="email">Email:</label>
+          <input [(ngModel)]="crud.email" type="email" class="form-control" id="email" placeholder="Enter email" name="email">
+        </div>
+        <div class="form-group">
+            <label for="mob">Mobail</label>
+            <input [(ngModel)]="crud.phone" type="tel" class="form-control" id="mob" placeholder="Enter mobile number" name="phone">
+          </div>
+        <button type="submit" class="btn btn-primary">{{isEdit ? "Update": "Create"}}</button>
+      </form>
+    </div>
+    <div class="col-8">
+        <table class="table">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Mobile</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor=" let user of userList" >
+                  <td>{{user.name}}</td>
+                  <td>{{user.email}}</td>
+                  <td>{{user.phone}}</td>
+                <td>
+                  <i class="fa fa-edit p-2 " style="color:blue;cursor: pointer;" (click)="edit(user)" ></i> 
+                  <i class="fa fa-trash p-2" style="color:red;cursor: pointer;" (click)="delete(user.id)"></i>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+    </div>
+  </div>
+</div>
+
+<!-- <router-outlet></router-outlet> -->
